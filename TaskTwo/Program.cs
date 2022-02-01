@@ -31,9 +31,8 @@ namespace hwTwoMacVersion
 {
     class Program
     {
-        // 2 arrays that hold the items for purchase and price
-       
-        private static Dictionary<string, double> listOfFruit = new Dictionary<string, double>
+        //static dictionary that we can user in our code
+        static Dictionary<string, double> listOfFruit = new Dictionary<string, double>
         {
             {"apples",.99},
             {"oranges",.5},
@@ -45,18 +44,22 @@ namespace hwTwoMacVersion
 
         static void Main(string[] args)
         {
-
+            // list what the user can purchase
             Console.WriteLine("You can purchase:\n");
             foreach (var x in listOfFruit)
             {
                 Console.WriteLine(x);
             }
+            // formating 
+            Console.WriteLine("\n");
 
+            // calls method that will get what the user wants
             userWantedItem();
 
             Console.ReadLine();
         }
 
+        // method that gets what the user wants
         static void userWantedItem()
         {
 
@@ -64,9 +67,11 @@ namespace hwTwoMacVersion
 
             Console.WriteLine("Enter one of the items desired\n");
 
+            // setting user input and correct input boolean for future checking 
             string userInput = "";
             bool correctInput = false;
 
+            // while the user wants to input material
             while (userInput != "stop")
             {
                 userInput = Console.ReadLine().ToLower();
@@ -78,7 +83,7 @@ namespace hwTwoMacVersion
                 {
                     correctInput = true;
 
-                    Console.WriteLine("The price of " + listOfFruit[userInput] + " is: " + listOfFruit[userInput].ToString("C2"));
+                    Console.WriteLine("The price of " + userInput + " is: " + listOfFruit[userInput].ToString("C2"));
 
                 }
                 // if the user wants to stop entering fruits and getting the cost
@@ -87,15 +92,10 @@ namespace hwTwoMacVersion
                     Console.WriteLine("Done Shopping? Have a good day!");
 
                 }
-                // if the user entered a string that is not "stop" or a correct spelling in our list
-                //else if ((userInput.ToLower() != "stop") && (correctInput = false))
-                //{
-                //    Console.WriteLine("Warning! You entered a fruit that is not in our list.");
-                //}
+                // input does not stop or work
                 else
                 {
                     Console.WriteLine("Warning! You entered a fruit that is not in our list.");
-
                 }
             }
 
