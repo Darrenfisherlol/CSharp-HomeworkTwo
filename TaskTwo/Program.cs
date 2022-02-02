@@ -27,7 +27,7 @@ Format the price as currency.
 using System;
 using System.Collections.Generic;
 
-namespace hwTwoMacVersion
+namespace TaskTwo
 {
     class Program
     {

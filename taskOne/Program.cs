@@ -21,7 +21,7 @@ Format the price as currency.
 
 using System;
 
-namespace hwTwoMacVersion
+namespace taskOne
 {
     class Program
     {
