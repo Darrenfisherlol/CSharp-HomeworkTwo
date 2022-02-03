@@ -141,22 +141,113 @@ namespace TaskThree
             List<Receipt> receiptList = new List<Receipt>();
 
             // ask user for # cogs
-            Console.WriteLine("Enter the amount of cogs you want to buy");
-            int numCogs = Convert.ToInt32(Console.ReadLine());
+            //Console.WriteLine("Enter the amount of cogs you want to buy");
+            int numCogs = 0;
 
             // ask user for # gears
-            Console.WriteLine("Enter the amount of gears you want to buy");
-            int numGears = Convert.ToInt32(Console.ReadLine());
-
+            //Console.WriteLine("Enter the amount of gears you want to buy");
+            int numGears = 0;
             // ask user for id 
-            Console.WriteLine("Enter your Customer ID for this sale order");
-            int customerID = Convert.ToInt32(Console.ReadLine());
+            //Console.WriteLine("Enter your Customer ID for this sale order");
+            int customerID = 0;
 
-            Receipt receiptOne = new Receipt(customerID, numCogs, numGears);
-            receiptList.Add(receiptOne);
-           
+            // initialize object so it can change in while loop & made while loop condition
+            Receipt receiptOne;
+            string keepGoing= "yes";
 
-            Console.WriteLine(receiptOne);
+            while (keepGoing != "no")
+            {
+                // ask user for # cogs
+                Console.WriteLine("Enter the amount of cogs you want to buy");
+                numCogs = Convert.ToInt32(Console.ReadLine());
+
+                // ask user for # gears
+                Console.WriteLine("Enter the amount of gears you want to buy");
+                numGears = Convert.ToInt32(Console.ReadLine());
+
+                // ask user for id 
+                Console.WriteLine("Enter your Customer ID for this sale order");
+                customerID = Convert.ToInt32(Console.ReadLine());
+
+                receiptOne = new Receipt(customerID, numCogs, numGears);
+                receiptList.Add(receiptOne);
+
+                // ask user for id 
+                Console.WriteLine("Do you want to continue ? yes or no .");
+                keepGoing = Console.ReadLine().ToLower().Trim();
+            }
+
+            // reset this statement so I can use it again
+            keepGoing = "yes";
+
+            // get what the user wants to print
+            string printWhat = "";
+
+            // user input to continue asking to print specific things
+            while (keepGoing != "no")
+            {
+
+                Console.WriteLine("Do you want to print based of Customer ID or highets sale amount or sale Date?");
+                Console.WriteLine("Enter: CutomerID, Highest or SaleDate\n");
+                printWhat = Console.ReadLine().ToLower().Trim();
+
+
+                // customer id printing 
+                if (printWhat == "customerid")
+                {
+                    Console.WriteLine("Enter a customer ID to print off");
+                    int custIDPrint = Convert.ToInt32(Console.ReadLine());
+
+                    foreach (Receipt receipt in receiptList)
+                    {
+                        receipt.PrintReceipt();
+                        Console.WriteLine("\n");
+                    }
+                }
+                // highest pruchase amount
+                else if (printWhat == "highest")
+                {
+                    double custIDPrint = 0;
+                    double max = 0;
+                    foreach (Receipt receipt in receiptList)
+                    {
+                        max = receipt.CalculateTotal();
+                        if (custIDPrint <= max)
+                        {
+                            custIDPrint = max;
+                        }
+                     
+                    }
+                    Console.WriteLine("Highest amount is: " + custIDPrint);
+                    Console.WriteLine("\n");
+                }
+                // the sale date print
+                else
+                {
+                    Console.WriteLine("Enter sale date you want to print");
+
+                    DateTime custDataPrint = Convert.ToDateTime(Console.ReadLine());
+
+                    foreach (Receipt receipt in receiptList)
+                    {
+                        // if the sale date on the receipt is = customer time, print it 
+                        if (receipt.SaleDate.Date == custDataPrint)
+                        {
+                            receipt.PrintReceipt();
+                        }
+                        Console.WriteLine("\n");
+                    }
+                }
+
+                // do you want to keep doing
+                Console.WriteLine("Do you want to continue and print out more ? yes or no .\n");
+                keepGoing = Console.ReadLine().ToLower().Trim();
+            }
+
+            Console.WriteLine("Thank you! Have a great day!");
+
+
+            Console.ReadKey();
         }
     }
 }
